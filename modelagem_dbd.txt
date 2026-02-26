@@ -1,0 +1,41 @@
+Table participantes{
+  id uuid [primary key]
+  nome varchar [not null]
+  cpf varchar [unique, not null]
+  data_nasc date [not null]
+}
+
+Table credencial {
+  id uuid [primary key]
+  participante_id uuid [not null, unique, ref: > participantes.id]
+  data data [not null]
+  status varchar [not null]
+}
+
+Table coordenador{
+  id uuid [primary key]
+  nome varchar [not null]
+}
+
+Table inscricoes{
+  id uuid [primary key]
+  id_participantes uuid [unique, not null, ref: > participantes.id]
+  sessao_id uuid [unique, not null, ref: > sessao.id]
+  horario timestamp [not null]
+}
+
+Table trilha{
+  id uuid [primary key]
+  area_trilha varchar [not null]
+  nome varchar [not null]
+  descricao varchar [not null]
+  coordenador_id varchar [ref: > coordenador.id]
+}
+
+Table sessao{
+  id uuid [primary key]
+  trilha_id uuid [not null, ref: > trilha.id]
+  titulo varchar [not null]
+  horario_inicio timestamp [not null]
+  horario_terminar timestamp [not null]
+}
