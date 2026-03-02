@@ -1,0 +1,60 @@
+Table animal{
+  id uuid [primary key]
+  nome varchar [not null]
+  especie varchar [not null]
+  nasc date [not null]
+  sexo varchar [not null]
+  cor varchar [not null]
+  porte varchar [not null]
+  id_tutor varchar [ref: > tutor.id]
+}
+
+Table tutor{
+  id uuid [primary key]
+  nome varchar [not null]
+  cpf varchar [unique, not null]
+  email varchar [unique, not null]
+  endereco varchar [not null]
+}
+
+Table medico{
+  id uuid [primary key]
+  nome varchar [not null]
+  crmv varchar [unique, not null]
+  especialidade varchar [not null]
+  telefone varchar [unique, not null]
+  email varchar [unique, not null]
+}
+
+Table consulta{
+  id uuid [primary key]
+  id_medico varchar [ref: > medico.id]
+  id_animal varchar [ref: > animal.id]
+  id_tutor varchar [ref: > tutor.id]
+  data data [not null]
+  hora timestamp [unique, not null]
+  sintomas varchar [not null]
+  diagnostico varcahr [not null]
+  obs varchar
+}
+
+Table tratamento{
+  id uuid [primary key]
+  id_consulta varchar [ref: > consulta.id]
+  medicamentos varchar
+  dosagem varchar
+  duracao varchar
+  instrucoes varchar
+}
+
+Table vacina{
+  id uuid [primary key]
+  id_animal varchar [ref: > animal.id]
+  id_medico varchar [ref: > medico.id]
+  id_consulta varchar [ref: > consulta.id]
+  nome varchar [not null]
+  fabricante varchar [not null]
+  lote varchar [not null]
+  validade varchar [not null]
+  data_apli varchar [not null]
+}
